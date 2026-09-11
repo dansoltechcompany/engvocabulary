@@ -1,19 +1,12 @@
 import { WORDS, WORD_BY_ID, wordsForLevel } from '../data/words.js'
+import { getCard, saveState } from './storage.js'
 
-const KEY = 'engvocab-state-v1'
-const SESSION_KEY = 'engvocab-session-v1'
+export { emptyState, getCard, loadState, saveState, loadLiveSession, saveLiveSession } from './storage.js'
+export { speak } from './speak.js'
+
 const DAY_MS = 24 * 60 * 60 * 1000
 const SESSION_SIZE = 8
 const NEW_PER_SESSION = 4
-
-export const emptyState = () => ({
-  onboardingDone: false,
-  learnerLevel: 'A1',
-  streak: 0,
-  lastStudyDate: null,
-  cards: {},
-  quizHistory: [],
-})
 
 export function pool(state) {
   const level = state.learnerLevel || 'A1'
@@ -26,40 +19,6 @@ export function todayKey(date = new Date()) {
   const m = String(date.getMonth() + 1).padStart(2, '0')
   const d = String(date.getDate()).padStart(2, '0')
   return `${y}-${m}-${d}`
-}
-
-export function loadState() {
-  try {
-    const raw = localStorage.getItem(KEY)
-    if (!raw) return emptyState()
-    return { ...emptyState(), ...JSON.parse(raw) }
-  } catch {
-    return emptyState()
-  }
-}
-
-export function saveState(state) {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(state))
-  } catch {
-    // Private mode or a full disk should not crash the page.
-  }
-  return state
-}
-
-export function getCard(state, id) {
-  return (
-    state.cards[id] || {
-      stage: 'new',
-      intervalDays: 0,
-      due: 0,
-      consecutive: 0,
-      seen: 0,
-      again: 0,
-      almost: 0,
-      know: 0,
-    }
-  )
 }
 
 export function dueIds(state, now = Date.now()) {
@@ -200,37 +159,6 @@ export function getWordOfDay(level = 'A1') {
   let hash = 0
   for (let i = 0; i < key.length; i += 1) hash = (hash * 31 + key.charCodeAt(i)) >>> 0
   return source[hash % source.length]
-}
-
-export function speak(text) {
-  if (typeof window === 'undefined' || !window.speechSynthesis) return
-  window.speechSynthesis.cancel()
-  const utterance = new SpeechSynthesisUtterance(text)
-  utterance.lang = 'en-US'
-  utterance.rate = 0.9
-  const american = window.speechSynthesis
-    .getVoices()
-    .find((voice) => /^en-US/i.test(voice.lang) || /united states|us english|american/i.test(voice.name))
-  if (american) utterance.voice = american
-  window.speechSynthesis.speak(utterance)
-}
-
-export function loadLiveSession() {
-  try {
-    const raw = sessionStorage.getItem(SESSION_KEY)
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
-}
-
-export function saveLiveSession(session) {
-  try {
-    if (!session) sessionStorage.removeItem(SESSION_KEY)
-    else sessionStorage.setItem(SESSION_KEY, JSON.stringify(session))
-  } catch {
-    // Ignore quota errors so study can still finish this visit.
-  }
 }
 
 export { SESSION_SIZE }

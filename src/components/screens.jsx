@@ -3,15 +3,15 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { LEVELS, WORDS, WORD_BY_ID, levelCounts } from '../data/words.js'
-import { TOPICS, topicLabel, topicWords } from '../data/topics.js'
+import { TOPICS, topicLabel } from '../data/topics.js'
 import { getCard, getStats, getWordOfDay } from '../lib/progress.js'
-import { stageLabel } from '../lib/related.js'
+import { stageLabel } from '../lib/labels.js'
 import { Pronunciation } from './Pronunciation.jsx'
 import { SpeakButton } from './SpeakButton.jsx'
 import { useStudy } from './StudyProvider.jsx'
 
 export function HomeScreen() {
-  const { state, session, installEvent, startSession, setLevel, install } = useStudy()
+  const { ready, state, session, installEvent, startSession, setLevel, install } = useStudy()
   const stats = getStats(state)
   const [word, setWord] = useState(null)
   useEffect(() => {
@@ -25,7 +25,7 @@ export function HomeScreen() {
         ? session.ids.length - session.index
         : 0
   const continueKind = session?.quiz?.length && !session.quizDone ? 'quiz' : 'learn'
-  const ready = stats.dueToday > 0 || stats.newLeft > 0
+  const readyCount = stats.dueToday > 0 || stats.newLeft > 0
     ? Math.min(8, stats.dueToday + Math.min(4, stats.newLeft))
     : Math.min(8, stats.total)
   const ctaLabel = continueKind === 'quiz' && continueCount > 0
@@ -33,11 +33,13 @@ export function HomeScreen() {
     : continueCount > 0
       ? 'Continue'
       : 'Start today’s session'
-  const ctaMeta = continueKind === 'quiz' && continueCount > 0
-    ? `${continueCount} ${continueCount === 1 ? 'question' : 'questions'} left`
-    : continueCount > 0
-      ? `${continueCount} words left`
-      : `${ready} words ready`
+  const ctaMeta = !ready
+    ? 'Loading…'
+    : continueKind === 'quiz' && continueCount > 0
+      ? `${continueCount} ${continueCount === 1 ? 'question' : 'questions'} left`
+      : continueCount > 0
+        ? `${continueCount} words left`
+        : `${readyCount} words ready`
   const counts = levelCounts()
 
   return (
@@ -57,7 +59,7 @@ export function HomeScreen() {
           ))}
         </div>
         <div className="stack" style={{ marginTop: 16 }}>
-          <button className="cta" type="button" onClick={startSession}>
+          <button className="cta" type="button" onClick={startSession} disabled={!ready}>
             <span>
               {ctaLabel}
               <br />
@@ -75,11 +77,11 @@ export function HomeScreen() {
       <aside className="stack">
         <div className="stats-row">
           <div className="stat">
-            <b>{stats.seen}</b>
+            <b>{ready ? stats.seen : '—'}</b>
             <span className="muted">{stats.seen === 1 ? 'Word seen' : 'Words seen'}</span>
           </div>
           <div className="stat">
-            <b>{stats.dueToday}</b>
+            <b>{ready ? stats.dueToday : '—'}</b>
             <span className="muted">Due to review</span>
           </div>
         </div>
@@ -97,7 +99,7 @@ export function HomeScreen() {
             <p className="muted" style={{ marginTop: 10 }}>{word.meaning}</p>
           </Link>
         ) : null}
-        <p className="muted">{stats.streak} day streak</p>
+        <p className="muted">{ready ? `${stats.streak} day streak` : 'Progress stays on this device'}</p>
         <Link className="card topic-home" href="/vocabulary">
           <p className="eyebrow">Topics</p>
           <p className="hero-copy" style={{ margin: '8px 0 0' }}>Sixteen lists for everyday English</p>
@@ -116,7 +118,14 @@ export function HomeScreen() {
 }
 
 export function LearnScreen() {
-  const { session, reveal, rate } = useStudy()
+  const { ready, session, reveal, rate } = useStudy()
+  if (!ready) {
+    return (
+      <section className="screen study-shell">
+        <p className="muted">Loading your session…</p>
+      </section>
+    )
+  }
   const backHref = session?.topic ? `/vocabulary/${session.topic}` : '/'
   const backLabel = session?.topic ? 'Topic' : 'Home'
 
@@ -190,7 +199,14 @@ export function LearnScreen() {
 }
 
 export function QuizScreen() {
-  const { session, chooseQuiz, nextQuiz, finishQuiz } = useStudy()
+  const { ready, session, chooseQuiz, nextQuiz, finishQuiz } = useStudy()
+  if (!ready) {
+    return (
+      <section className="screen study-shell">
+        <p className="muted">Loading your quiz…</p>
+      </section>
+    )
+  }
   const finishLabel = session?.topic ? 'Back to topic' : 'Back home'
 
   if (!session?.quiz?.length) {
@@ -271,6 +287,15 @@ export function LibraryScreen() {
   useEffect(() => {
     if (ready) setLevel(state.learnerLevel || 'all')
   }, [ready, state.learnerLevel])
+  if (!ready) {
+    return (
+      <section className="screen">
+        <p className="eyebrow">Library</p>
+        <h1>English words, A1 to C2</h1>
+        <p className="muted" style={{ marginTop: 16 }}>Loading the list…</p>
+      </section>
+    )
+  }
   const list = WORDS.filter((word) => {
     const card = getCard(state, word.id)
     const matchesQuery = `${word.word} ${word.meaning}`.toLowerCase().includes(query.toLowerCase())
@@ -354,108 +379,27 @@ export function LibraryScreen() {
   )
 }
 
-export function TopicHubScreen({ topic }) {
-  const { startTopicSession } = useStudy()
-  const [level, setLevel] = useState('all')
-  const allWords = topicWords(topic)
-  const total = allWords.length
-  const visible = topicWords(topic, level)
-  const present = LEVELS.filter((item) => allWords.some((word) => word.level === item))
-  const range = present.length > 1 ? `${present[0]} to ${present[present.length - 1]}` : present[0] || ''
-
-  return (
-    <article className="screen">
-      <p className="eyebrow">
-        <Link href="/vocabulary">Topics</Link>
-        {' / '}{topic.title}
-      </p>
-      <h1>{topic.h1}</h1>
-      <p className="hero-copy muted">{topic.blurb} {total} words{range ? `, ${range}` : ''}.</p>
-      <div className="stack" style={{ marginTop: 20, maxWidth: 560 }}>
-        <button className="cta" type="button" onClick={() => startTopicSession(topic)}>
-          <span>
-            Study this topic
-            <br />
-            <small>8 words from the list</small>
-          </span>
-          <span>→</span>
-        </button>
-      </div>
-      <div className="filters" style={{ marginTop: 22 }}>
-        {['all', ...present].map((item) => (
-          <button key={item} className={level === item ? 'on' : ''} type="button" onClick={() => setLevel(item)}>
-            {item === 'all' ? 'All levels' : item}
-          </button>
-        ))}
-      </div>
-      <p className="muted" style={{ margin: '8px 0 0' }}>
-        {visible.length} {visible.length === 1 ? 'word' : 'words'}
-        {level !== 'all' && visible.length === 0 ? ` at ${level} on this list.` : ''}
-      </p>
-      {topic.groups.map((group) => {
-        const rows = group.ids
-          .map((id) => WORD_BY_ID[id])
-          .filter(Boolean)
-          .filter((word) => level === 'all' || word.level === level)
-        if (!rows.length) return null
-        return (
-          <section key={group.heading}>
-            <h2 className="entry-h">{group.heading}</h2>
-            <div className="topic-word-list">
-              {rows.map((word) => (
-                <Link
-                  key={word.id}
-                  id={`entry-${word.id}`}
-                  className="topic-word"
-                  href={`/word/${word.id}`}
-                >
-                  <span className="topic-word-head">
-                    <b>{word.word}</b>
-                    <span className="chip">{word.level}</span>
-                  </span>
-                  <span className="muted">{word.meaning}</span>
-                  <span className="topic-word-ex">“{word.example}”</span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )
-      })}
-      <h2 className="entry-h">More topics</h2>
-      <div className="topic-chip-row">
-        {TOPICS.filter((item) => item.slug !== topic.slug).map((item) => (
-          <Link
-            key={item.slug}
-            className="ghost topic-more"
-            href={`/vocabulary/${item.slug}`}
-          >
-            {topicLabel(item)}
-          </Link>
-        ))}
-      </div>
-    </article>
-  )
-}
-
 export function ProgressScreen() {
-  const { state } = useStudy()
+  const { ready, state } = useStudy()
   const stats = getStats(state)
   return (
     <section className="screen progress-grid">
       <div>
         <p className="eyebrow">Your progress</p>
         <h1>Keep the streak honest.</h1>
-        <p className="done-num">{stats.streak}</p>
-        <p className="muted">day streak · {stats.seen} of {stats.total} {stats.level} words</p>
+        <p className="done-num">{ready ? stats.streak : '—'}</p>
+        <p className="muted">
+          day streak · {ready ? `${stats.seen} of ${stats.total} ${stats.level} words` : 'loading…'}
+        </p>
       </div>
       <div className="stack">
         <div className="stats-row">
-          <div className="stat"><b>{stats.learning}</b><span className="muted">Learning</span></div>
-          <div className="stat"><b>{stats.review}</b><span className="muted">In review</span></div>
+          <div className="stat"><b>{ready ? stats.learning : '—'}</b><span className="muted">Learning</span></div>
+          <div className="stat"><b>{ready ? stats.review : '—'}</b><span className="muted">In review</span></div>
         </div>
         <div className="stats-row">
-          <div className="stat"><b>{stats.mastered}</b><span className="muted">Mastered</span></div>
-          <div className="stat"><b>{stats.dueToday}</b><span className="muted">Due today</span></div>
+          <div className="stat"><b>{ready ? stats.mastered : '—'}</b><span className="muted">Mastered</span></div>
+          <div className="stat"><b>{ready ? stats.dueToday : '—'}</b><span className="muted">Due today</span></div>
         </div>
         <div className="card">
           <p className="eyebrow">How memory works here</p>

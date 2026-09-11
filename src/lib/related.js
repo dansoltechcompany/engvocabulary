@@ -1,12 +1,7 @@
 import { WORD_BY_ID, wordsForLevel } from '../data/words.js'
 import { topicBySlug, topicIds, topicLabel, topicsForWord } from '../data/topics.js'
 
-export function stageLabel(stage) {
-  if (stage === 'mastered') return 'Mastered'
-  if (stage === 'review') return 'Review'
-  if (stage === 'learning') return 'Learning'
-  return 'New'
-}
+export { stageLabel } from './labels.js'
 
 export function relatedWords(id) {
   const word = WORD_BY_ID[id]
@@ -21,7 +16,7 @@ export function relatedWords(id) {
 export function crumbForWord(id) {
   const topics = topicsForWord(id)
   if (topics[0]) {
-    return { href: `/vocabulary/${topics[0].slug}`, label: topicLabel(topics[0]) }
+    return { href: `/vocabulary/${topics[0].slug}#entry-${id}`, label: topicLabel(topics[0]) }
   }
   return { href: '/words', label: 'Words' }
 }

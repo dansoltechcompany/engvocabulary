@@ -20,7 +20,7 @@ export const metadata = {
   },
   appleWebApp: {
     capable: true,
-    title: 'EngVocab',
+    title: 'EngVocabulary',
     statusBarStyle: 'default',
   },
   other: {

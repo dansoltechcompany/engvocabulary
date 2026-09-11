@@ -16,7 +16,7 @@ export function WordArticle({ word }) {
     <article className="screen entry-layout">
       <div>
         <p className="eyebrow">
-          <Link href={crumb.href}>{crumb.label}</Link>
+          <Link href={crumb.href} scroll={false}>{crumb.label}</Link>
           {' / '}{word.level}
         </p>
         <span className="chip" style={{ marginTop: 12 }}>{word.pos} · {word.level}</span>

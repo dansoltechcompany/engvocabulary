@@ -18,7 +18,7 @@ export function ContactPage() {
     if (lines.length) lines.push('')
     lines.push(message.trim())
     const body = lines.join('\n')
-    const subject = name.trim() ? `EngVocab message from ${name.trim()}` : 'EngVocab message'
+    const subject = name.trim() ? `EngVocabulary message from ${name.trim()}` : 'EngVocabulary message'
     window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     setSent(true)
   }

@@ -1,10 +1,11 @@
-# EngVocab
+# EngVocabulary
 
 English vocabulary site for [engvocabulary.com](https://engvocabulary.com). Next.js static export (no server).
 
-```
-npm run dev
-npm run build
-```
+## Scripts
 
-Build output is `out/`. Cloudflare Pages: build `npm run build`, output directory `out`, Node 20.
+- `npm run dev` — local Next.js server
+- `npm run build` — static export to `out/`
+- `npm run preview` — serve `out/`
+
+Cloudflare Pages: framework **Next.js (Static HTML Export)**, output directory **`out`**, Node **20**.

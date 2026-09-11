@@ -1,6 +1,6 @@
 {
-  "name": "EngVocab",
-  "short_name": "EngVocab",
+  "name": "EngVocabulary",
+  "short_name": "EngVocabulary",
   "description": "A short daily English vocabulary practice.",
   "start_url": "/",
   "display": "standalone",

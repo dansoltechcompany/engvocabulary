@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getCard, loadState } from '../lib/progress.js'
-import { stageLabel } from '../lib/related.js'
+import { getCard, loadState } from '../lib/storage.js'
+import { stageLabel } from '../lib/labels.js'
 
 export function StageChip({ id }) {
   const [label, setLabel] = useState('New')

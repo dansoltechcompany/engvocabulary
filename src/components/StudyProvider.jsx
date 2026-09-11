@@ -2,20 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { WORD_BY_ID } from '../data/words.js'
-import { topicIds } from '../data/topics.js'
-import {
-  buildSession,
-  buildTopicSession,
-  emptyState,
-  loadLiveSession,
-  loadState,
-  rateCard,
-  recordStudyDay,
-  saveLiveSession,
-  saveState,
-} from '../lib/progress.js'
-import { buildQuiz } from '../lib/quiz.js'
+import { emptyState, loadLiveSession, loadState, saveLiveSession, saveState } from '../lib/storage.js'
 
 const StudyContext = createContext(null)
 
@@ -28,7 +15,7 @@ export function StudyProvider({ children }) {
 
   useEffect(() => {
     setState(loadState())
-    setSession(loadLiveSession())
+    setSession((current) => current || loadLiveSession())
     setReady(true)
   }, [])
 
@@ -48,7 +35,7 @@ export function StudyProvider({ children }) {
     return next
   }, [state])
 
-  const startSession = useCallback(() => {
+  const startSession = useCallback(async () => {
     const current = markOnboarded()
     const quizInProgress = session?.quiz?.length && !session.quizDone
     if (quizInProgress) {
@@ -60,6 +47,7 @@ export function StudyProvider({ children }) {
       router.push('/learn')
       return
     }
+    const { buildSession } = await import('../lib/progress.js')
     const ids = buildSession(current)
     const next = { ids, index: 0, revealed: false, ratings: {} }
     setSession(next)
@@ -67,8 +55,14 @@ export function StudyProvider({ children }) {
     router.push('/learn')
   }, [markOnboarded, router, session])
 
-  const startTopicSession = useCallback((topic) => {
+  const startTopicSession = useCallback(async (topicOrSlug) => {
     const current = markOnboarded()
+    const [{ buildTopicSession }, { topicBySlug, topicIds }] = await Promise.all([
+      import('../lib/progress.js'),
+      import('../data/topics.js'),
+    ])
+    const topic = typeof topicOrSlug === 'string' ? topicBySlug(topicOrSlug) : topicOrSlug
+    if (!topic) return
     const ids = buildTopicSession(current, topicIds(topic))
     const next = {
       ids,
@@ -82,15 +76,6 @@ export function StudyProvider({ children }) {
     router.push('/learn')
   }, [markOnboarded, router])
 
-  const finishLearn = useCallback((current, latestState) => {
-    setState(recordStudyDay(latestState))
-    const quiz = buildQuiz(current.ids)
-    const next = { ...current, quiz, quizIndex: 0, quizScore: 0, quizLocked: false, quizDone: false }
-    setSession(next)
-    saveLiveSession(next)
-    router.push('/quiz')
-  }, [router])
-
   const setLevel = useCallback((level) => {
     const next = saveState({ ...state, onboardingDone: true, learnerLevel: level })
     setState(next)
@@ -99,13 +84,20 @@ export function StudyProvider({ children }) {
   }, [state])
 
   const reveal = useCallback(() => {
+    if (!session) return
     const next = { ...session, revealed: true }
     setSession(next)
     saveLiveSession(next)
   }, [session])
 
-  const rate = useCallback((rating) => {
+  const rate = useCallback(async (rating) => {
+    if (!session?.ids?.length) return
     const id = session.ids[session.index]
+    const [{ WORD_BY_ID }, { rateCard, recordStudyDay }, { buildQuiz }] = await Promise.all([
+      import('../data/words.js'),
+      import('../lib/progress.js'),
+      import('../lib/quiz.js'),
+    ])
     if (!id || !WORD_BY_ID[id]) return
     const nextState = recordStudyDay(rateCard(state, id, rating))
     setState(nextState)
@@ -117,12 +109,16 @@ export function StudyProvider({ children }) {
       ratings: { ...session.ratings, [id]: rating },
     }
     if (nextIndex >= session.ids.length) {
-      finishLearn(next, nextState)
+      const quiz = buildQuiz(next.ids)
+      const quizSession = { ...next, quiz, quizIndex: 0, quizScore: 0, quizLocked: false, quizDone: false }
+      setSession(quizSession)
+      saveLiveSession(quizSession)
+      router.push('/quiz')
       return
     }
     setSession(next)
     saveLiveSession(next)
-  }, [finishLearn, session, state])
+  }, [router, session, state])
 
   const chooseQuiz = useCallback((option) => {
     if (!session?.quiz?.length || session.quizLocked) return
@@ -140,6 +136,7 @@ export function StudyProvider({ children }) {
   }, [session])
 
   const nextQuiz = useCallback(() => {
+    if (!session?.quiz) return
     const nextIndex = session.quizIndex + 1
     if (nextIndex >= session.quiz.length) {
       const next = { ...session, quizDone: true }

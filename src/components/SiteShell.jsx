@@ -6,7 +6,7 @@ import { useStudy } from './StudyProvider.jsx'
 
 export function SiteShell({ children }) {
   const pathname = usePathname() || '/'
-  const { startSession } = useStudy()
+  const { ready, startSession } = useStudy()
   const home = pathname === '/'
   const study = pathname === '/learn' || pathname === '/quiz'
   const topics = pathname === '/vocabulary' || pathname.startsWith('/vocabulary/')
@@ -18,7 +18,7 @@ export function SiteShell({ children }) {
       <Link key={`${key}-home`} href="/" className={home ? 'active' : ''}>
         Home
       </Link>
-      <button type="button" key={`${key}-study`} className={study ? 'active' : ''} onClick={startSession}>
+      <button type="button" key={`${key}-study`} className={study ? 'active' : ''} onClick={startSession} disabled={!ready}>
         Study
       </button>
       <Link key={`${key}-topics`} href="/vocabulary" className={topics ? 'active' : ''}>
@@ -53,7 +53,7 @@ export function SiteShell({ children }) {
           <Link className="brand" href="/">
             <span className="brand-mark">E</span>
             <span>
-              EngVocab
+              EngVocabulary
               <small>English vocabulary</small>
             </span>
           </Link>
@@ -63,7 +63,7 @@ export function SiteShell({ children }) {
       <main id="main" className="site-main" tabIndex={-1}>{children}</main>
       <footer className="site-footer">
         <div className="site-footer-inner">
-          <p>EngVocab — English words with short lessons and a daily practice.</p>
+          <p>EngVocabulary — English words with short lessons and a daily practice.</p>
           <nav className="footer-links" aria-label="Site">
             <Link href="/vocabulary">Topics</Link>
             <Link href="/about">About</Link>

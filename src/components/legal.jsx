@@ -21,7 +21,7 @@ export function AboutPage() {
   return (
     <LegalLayout eyebrow="About" title="A vocabulary site that teaches, not just lists.">
       <p className="prose">
-        EngVocab helps you learn English words from beginner A1 to advanced C2.
+        EngVocabulary helps you learn English words from beginner A1 to advanced C2.
         Each word has its own page: a plain-English explainer, examples, and a short note on how people actually use it.
         You can also browse by topic. There are sixteen lists — weather, family, work, health, and more.
       </p>
@@ -37,7 +37,7 @@ export function AboutPage() {
       </p>
       <p className="prose tight">
         Progress stays on this device. There is no account to create.
-        The A1–C2 labels follow the Common European Framework as a guide; EngVocab is not an exam board and is not affiliated with Cambridge, IELTS, or the Council of Europe.
+        The A1–C2 labels follow the Common European Framework as a guide; EngVocabulary is not an exam board and is not affiliated with Cambridge, IELTS, or the Council of Europe.
       </p>
     </LegalLayout>
   )
@@ -55,7 +55,7 @@ export function PrivacyPage() {
       <p className="prose tight">
         Your level, streak, and how well you know each word are saved in your browser (local storage).
         A study session in progress is saved until you finish it or close the tab.
-        That information does not leave your device through EngVocab. If you clear the site data in your browser, the progress is gone.
+        That information does not leave your device through EngVocabulary. If you clear the site data in your browser, the progress is gone.
       </p>
 
       <h2 className="entry-h">What we do not collect</h2>

@@ -1,6 +1,6 @@
 import { SITE } from '../data/site.js'
 
-export const DEFAULT_TITLE = 'EngVocab — learn English vocabulary'
+export const DEFAULT_TITLE = 'EngVocabulary — learn English vocabulary'
 export const DEFAULT_DESCRIPTION =
   'Learn English words from A1 to C2. Short daily practice with clear meanings and examples.'
 
@@ -34,7 +34,7 @@ export function wordJsonLd(word) {
     '@type': 'DefinedTerm',
     name: word.word,
     description: word.explainer || word.meaning,
-    inDefinedTermSet: 'EngVocab',
+    inDefinedTermSet: 'EngVocabulary',
     url: `${SITE.origin}/word/${word.id}`,
   }
 }

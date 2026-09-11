@@ -13,15 +13,15 @@ export async function generateMetadata({ params }) {
   const word = WORD_BY_ID[id]
   if (!word) {
     return pageMeta({
-      title: 'Word not found | EngVocab',
-      description: 'That word is not in the EngVocab dictionary. Browse by topic or by level.',
+      title: 'Word not found | EngVocabulary',
+      description: 'That word is not in the EngVocabulary dictionary. Browse by topic or by level.',
       path: `/word/${id || ''}`,
       noindex: true,
     })
   }
   const lesson = buildLesson(word)
   return pageMeta({
-    title: `${word.word} meaning — ${word.level} English | EngVocab`,
+    title: `${word.word} meaning — ${word.level} English | EngVocabulary`,
     description: lesson.explainer.slice(0, 158),
     path: `/word/${word.id}`,
   })

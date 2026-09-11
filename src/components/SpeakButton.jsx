@@ -1,6 +1,6 @@
 'use client'
 
-import { speak } from '../lib/progress.js'
+import { speak } from '../lib/speak.js'
 
 export function SpeakButton({ word, label }) {
   return (

@@ -296,6 +296,19 @@ a.wotd {
   cursor: pointer;
 }
 
+.cta:disabled,
+.nav button:disabled,
+.site-nav button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+a.ghost {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .cta.wide {
   max-width: none;
 }

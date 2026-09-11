@@ -1,4 +1,4 @@
-const CACHE = 'engvocab-v3'
+const CACHE = 'engvocabulary-v5'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -24,6 +24,8 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url)
   if (url.origin !== self.location.origin) return
 
+  const isAsset = url.pathname.startsWith('/_next/') || /\.(js|css|png|svg|xml|webmanifest|txt|woff2?)$/i.test(url.pathname)
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
@@ -33,6 +35,12 @@ self.addEventListener('fetch', (event) => {
         }
         return response
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('/index.html')))
+      .catch(() =>
+        caches.match(event.request).then((cached) => {
+          if (cached) return cached
+          if (isAsset) return Response.error()
+          return caches.match('/index.html')
+        }),
+      ),
   )
 })

@@ -121,7 +121,7 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Meals and eating out',
-        ids: ['food', 'eat', 'meal', 'breakfast', 'lunch', 'dinner', 'snack', 'hungry', 'thirsty', 'drink', 'water', 'menu', 'restaurant', 'cafe', 'cafeteria', 'takeaway', 'fast-food', 'waiter', 'waitress', 'chef', 'dish', 'course', 'main', 'dessert', 'pudding', 'bill', 'tip', 'order', 'serve', 'portion', 'diet', 'vegetarian', 'vegan', 'picnic', 'barbecue'],
+        ids: ['food', 'eat', 'meal', 'breakfast', 'lunch', 'dinner', 'snack', 'hungry', 'thirsty', 'drink', 'water', 'menu', 'restaurant', 'cafe', 'cafeteria', 'takeaway', 'fast-food', 'waiter', 'waitress', 'chef', 'dish', 'dessert', 'pudding', 'bill', 'tip', 'order', 'serve', 'portion', 'diet', 'vegetarian', 'vegan', 'picnic', 'barbecue'],
       },
       {
         heading: 'Cooking',
@@ -129,7 +129,7 @@ export const TOPICS = [
       },
       {
         heading: 'Taste and ingredients',
-        ids: ['taste', 'flavour', 'delicious', 'hot', 'sweet', 'bitter', 'crisp', 'soft', 'bread', 'toast', 'butter', 'jam', 'honey', 'cheese', 'egg', 'milk', 'yoghurt', 'cream', 'oil', 'vinegar', 'salt', 'pepper', 'sugar', 'flour', 'rice', 'pasta', 'potato', 'chips', 'crisps', 'meat', 'beef', 'lamb', 'chicken', 'turkey', 'fish', 'salmon', 'vegetable', 'salad', 'soup', 'sauce', 'gravy', 'curry', 'pizza', 'burger', 'sandwich', 'sarnie', 'wrap', 'pie', 'cake', 'biscuit', 'chocolate', 'ice-cream', 'fruit', 'apple', 'banana', 'orange', 'grape', 'strawberry', 'lemon', 'tomato', 'onion', 'garlic', 'carrot', 'pea', 'bean', 'cabbage', 'lettuce', 'cucumber', 'mushroom', 'herb', 'coffee', 'tea', 'juice', 'wine', 'beer', 'fizzy'],
+        ids: ['taste', 'flavour', 'delicious', 'hot', 'sweet', 'bitter', 'crisp', 'bread', 'toast', 'butter', 'jam', 'honey', 'cheese', 'egg', 'milk', 'yoghurt', 'cream', 'oil', 'vinegar', 'salt', 'pepper', 'sugar', 'flour', 'rice', 'pasta', 'potato', 'chips', 'crisps', 'meat', 'beef', 'lamb', 'chicken', 'turkey', 'fish', 'salmon', 'vegetable', 'salad', 'soup', 'sauce', 'gravy', 'curry', 'pizza', 'burger', 'sandwich', 'sarnie', 'pie', 'cake', 'biscuit', 'chocolate', 'ice-cream', 'fruit', 'apple', 'banana', 'orange', 'grape', 'strawberry', 'lemon', 'tomato', 'onion', 'garlic', 'carrot', 'pea', 'bean', 'cabbage', 'lettuce', 'cucumber', 'mushroom', 'herb', 'coffee', 'tea', 'juice', 'wine', 'beer', 'fizzy'],
       },
     ],
   },
