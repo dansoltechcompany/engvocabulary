@@ -304,8 +304,9 @@ a.wotd {
   cursor: wait;
 }
 
-.choice:disabled {
-  cursor: default;
+.choice.right:disabled,
+.choice.wrong:disabled {
+  opacity: 1;
 }
 
 a.ghost {

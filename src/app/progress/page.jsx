@@ -3,7 +3,7 @@ import { pageMeta } from '../../lib/seo.js'
 
 export const metadata = pageMeta({
   title: 'Progress | EngVocabulary',
-  description: 'A short English vocabulary session on this device.',
+  description: 'See your streak, words seen, and what is due to review on this device.',
   path: '/progress',
   noindex: true,
 })

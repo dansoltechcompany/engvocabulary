@@ -5,9 +5,17 @@ export const DEFAULT_TITLE = titleCase('EngVocabulary — learn English vocabula
 export const DEFAULT_DESCRIPTION =
   'Learn English words from A1 to C2. Short daily practice with clear meanings and examples.'
 
+export function clipDescription(text, max = 158) {
+  const value = String(text || '').replace(/\s+/g, ' ').trim()
+  if (value.length <= max) return value
+  const cut = value.slice(0, max - 1)
+  const at = cut.lastIndexOf(' ')
+  return `${(at > 80 ? cut.slice(0, at) : cut).trimEnd()}…`
+}
+
 export function pageMeta({ title, description, path, noindex = false }) {
   const nextTitle = titleCase(title || DEFAULT_TITLE)
-  const nextDescription = description || DEFAULT_DESCRIPTION
+  const nextDescription = clipDescription(description || DEFAULT_DESCRIPTION)
   const url = `${SITE.origin}${path || '/'}`
   return {
     title: nextTitle,

@@ -5,11 +5,14 @@ export function stageLabel(stage) {
   return 'New'
 }
 
-/** Display form for a dictionary headword: Apple, Ice cream, wellington-boot → Wellington-boot. */
+/** Display form for a dictionary headword: Apple, Ice Cream, USB Stick. */
 export function headword(text) {
   const value = String(text || '')
   if (!value) return ''
-  return value.charAt(0).toUpperCase() + value.slice(1)
+  return value.replace(/[A-Za-z']+/g, (segment) => {
+    if (segment.length > 1 && segment === segment.toUpperCase()) return segment
+    return segment.charAt(0).toUpperCase() + segment.slice(1)
+  })
 }
 
 const SMALL_TITLE_WORDS = new Set([
@@ -62,6 +65,8 @@ export function titleCase(text) {
       return word.replace(/[A-Za-z']+/g, (segment) => {
         if (/^[A-C][12]$/i.test(segment)) return segment.toUpperCase()
         if (/^EngVocabulary$/i.test(segment)) return 'EngVocabulary'
+        // Keep acronyms (USB, DIY, CCTV) and single letters (I) intact.
+        if (segment.length > 1 && segment === segment.toUpperCase()) return segment
         return segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase()
       })
     })
