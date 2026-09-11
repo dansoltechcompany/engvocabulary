@@ -6,7 +6,7 @@ import { useStudy } from './StudyProvider.jsx'
 
 export function SiteShell({ children }) {
   const pathname = usePathname() || '/'
-  const { ready, startSession } = useStudy()
+  const { ready, busy, startSession } = useStudy()
   const home = pathname === '/'
   const study = pathname === '/learn' || pathname === '/quiz'
   const topics = pathname === '/vocabulary' || pathname.startsWith('/vocabulary/')
@@ -18,7 +18,7 @@ export function SiteShell({ children }) {
       <Link key={`${key}-home`} href="/" className={home ? 'active' : ''}>
         Home
       </Link>
-      <button type="button" key={`${key}-study`} className={study ? 'active' : ''} onClick={startSession} disabled={!ready}>
+      <button type="button" key={`${key}-study`} className={study ? 'active' : ''} onClick={startSession} disabled={!ready || busy}>
         Study
       </button>
       <Link key={`${key}-topics`} href="/vocabulary" className={topics ? 'active' : ''}>

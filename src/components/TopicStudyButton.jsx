@@ -3,9 +3,9 @@
 import { useStudy } from './StudyProvider.jsx'
 
 export function TopicStudyButton({ slug }) {
-  const { ready, startTopicSession } = useStudy()
+  const { ready, busy, startTopicSession } = useStudy()
   return (
-    <button className="cta" type="button" onClick={() => startTopicSession(slug)} disabled={!ready}>
+    <button className="cta" type="button" onClick={() => startTopicSession(slug)} disabled={!ready || busy}>
       <span>
         Study this topic
         <br />

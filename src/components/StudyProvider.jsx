@@ -12,6 +12,7 @@ export function StudyProvider({ children }) {
   const [session, setSession] = useState(null)
   const [installEvent, setInstallEvent] = useState(null)
   const [ready, setReady] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   useEffect(() => {
     setState(loadState())
@@ -36,6 +37,7 @@ export function StudyProvider({ children }) {
   }, [state])
 
   const startSession = useCallback(async () => {
+    if (busy) return
     const current = markOnboarded()
     const quizInProgress = session?.quiz?.length && !session.quizDone
     if (quizInProgress) {
@@ -47,34 +49,46 @@ export function StudyProvider({ children }) {
       router.push('/learn')
       return
     }
-    const { buildSession } = await import('../lib/progress.js')
-    const ids = buildSession(current)
-    const next = { ids, index: 0, revealed: false, ratings: {} }
-    setSession(next)
-    saveLiveSession(next)
-    router.push('/learn')
-  }, [markOnboarded, router, session])
+    setBusy(true)
+    try {
+      const { buildSession } = await import('../lib/progress.js')
+      const ids = buildSession(current)
+      const next = { ids, index: 0, revealed: false, ratings: {} }
+      setSession(next)
+      saveLiveSession(next)
+      router.push('/learn')
+    } finally {
+      setBusy(false)
+    }
+  }, [busy, markOnboarded, router, session])
 
   const startTopicSession = useCallback(async (topicOrSlug) => {
+    if (busy) return
     const current = markOnboarded()
-    const [{ buildTopicSession }, { topicBySlug, topicIds }] = await Promise.all([
-      import('../lib/progress.js'),
-      import('../data/topics.js'),
-    ])
-    const topic = typeof topicOrSlug === 'string' ? topicBySlug(topicOrSlug) : topicOrSlug
-    if (!topic) return
-    const ids = buildTopicSession(current, topicIds(topic))
-    const next = {
-      ids,
-      index: 0,
-      revealed: false,
-      ratings: {},
-      topic: topic.slug,
+    setBusy(true)
+    try {
+      const [{ buildTopicSession }, { topicBySlug, topicIds }] = await Promise.all([
+        import('../lib/progress.js'),
+        import('../data/topics.js'),
+      ])
+      const topic = typeof topicOrSlug === 'string' ? topicBySlug(topicOrSlug) : topicOrSlug
+      if (!topic) return
+      const ids = buildTopicSession(current, topicIds(topic))
+      if (!ids.length) return
+      const next = {
+        ids,
+        index: 0,
+        revealed: false,
+        ratings: {},
+        topic: topic.slug,
+      }
+      setSession(next)
+      saveLiveSession(next)
+      router.push('/learn')
+    } finally {
+      setBusy(false)
     }
-    setSession(next)
-    saveLiveSession(next)
-    router.push('/learn')
-  }, [markOnboarded, router])
+  }, [busy, markOnboarded, router])
 
   const setLevel = useCallback((level) => {
     const next = saveState({ ...state, onboardingDone: true, learnerLevel: level })
@@ -91,34 +105,40 @@ export function StudyProvider({ children }) {
   }, [session])
 
   const rate = useCallback(async (rating) => {
-    if (!session?.ids?.length) return
+    if (busy || !session?.ids?.length || session.quiz) return
     const id = session.ids[session.index]
-    const [{ WORD_BY_ID }, { rateCard, recordStudyDay }, { buildQuiz }] = await Promise.all([
-      import('../data/words.js'),
-      import('../lib/progress.js'),
-      import('../lib/quiz.js'),
-    ])
-    if (!id || !WORD_BY_ID[id]) return
-    const nextState = recordStudyDay(rateCard(state, id, rating))
-    setState(nextState)
-    const nextIndex = session.index + 1
-    const next = {
-      ...session,
-      index: nextIndex,
-      revealed: false,
-      ratings: { ...session.ratings, [id]: rating },
+    if (!id) return
+    setBusy(true)
+    try {
+      const [{ WORD_BY_ID }, { rateCard, recordStudyDay }, { buildQuiz }] = await Promise.all([
+        import('../data/words.js'),
+        import('../lib/progress.js'),
+        import('../lib/quiz.js'),
+      ])
+      if (!WORD_BY_ID[id]) return
+      const nextState = recordStudyDay(rateCard(state, id, rating))
+      setState(nextState)
+      const nextIndex = session.index + 1
+      const next = {
+        ...session,
+        index: nextIndex,
+        revealed: false,
+        ratings: { ...session.ratings, [id]: rating },
+      }
+      if (nextIndex >= session.ids.length) {
+        const quiz = buildQuiz(next.ids)
+        const quizSession = { ...next, quiz, quizIndex: 0, quizScore: 0, quizLocked: false, quizDone: false }
+        setSession(quizSession)
+        saveLiveSession(quizSession)
+        router.push('/quiz')
+        return
+      }
+      setSession(next)
+      saveLiveSession(next)
+    } finally {
+      setBusy(false)
     }
-    if (nextIndex >= session.ids.length) {
-      const quiz = buildQuiz(next.ids)
-      const quizSession = { ...next, quiz, quizIndex: 0, quizScore: 0, quizLocked: false, quizDone: false }
-      setSession(quizSession)
-      saveLiveSession(quizSession)
-      router.push('/quiz')
-      return
-    }
-    setSession(next)
-    saveLiveSession(next)
-  }, [router, session, state])
+  }, [busy, router, session, state])
 
   const chooseQuiz = useCallback((option) => {
     if (!session?.quiz?.length || session.quizLocked) return
@@ -166,6 +186,7 @@ export function StudyProvider({ children }) {
   const value = useMemo(
     () => ({
       ready,
+      busy,
       state,
       session,
       installEvent,
@@ -180,6 +201,7 @@ export function StudyProvider({ children }) {
       install,
     }),
     [
+      busy,
       chooseQuiz,
       finishQuiz,
       install,

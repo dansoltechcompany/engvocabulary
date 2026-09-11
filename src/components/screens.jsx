@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { LEVELS, WORDS, WORD_BY_ID, levelCounts } from '../data/words.js'
 import { TOPICS, topicLabel } from '../data/topics.js'
 import { getCard, getStats, getWordOfDay } from '../lib/progress.js'
@@ -11,7 +12,7 @@ import { SpeakButton } from './SpeakButton.jsx'
 import { useStudy } from './StudyProvider.jsx'
 
 export function HomeScreen() {
-  const { ready, state, session, installEvent, startSession, setLevel, install } = useStudy()
+  const { ready, busy, state, session, installEvent, startSession, setLevel, install } = useStudy()
   const stats = getStats(state)
   const [word, setWord] = useState(null)
   useEffect(() => {
@@ -59,7 +60,7 @@ export function HomeScreen() {
           ))}
         </div>
         <div className="stack" style={{ marginTop: 16 }}>
-          <button className="cta" type="button" onClick={startSession} disabled={!ready}>
+          <button className="cta" type="button" onClick={startSession} disabled={!ready || busy}>
             <span>
               {ctaLabel}
               <br />
@@ -118,7 +119,16 @@ export function HomeScreen() {
 }
 
 export function LearnScreen() {
-  const { ready, session, reveal, rate } = useStudy()
+  const { ready, busy, session, reveal, rate } = useStudy()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!ready || !session) return
+    if (session.quiz?.length && !session.quizDone) {
+      router.replace('/quiz')
+    }
+  }, [ready, router, session])
+
   if (!ready) {
     return (
       <section className="screen study-shell">
@@ -129,7 +139,15 @@ export function LearnScreen() {
   const backHref = session?.topic ? `/vocabulary/${session.topic}` : '/'
   const backLabel = session?.topic ? 'Topic' : 'Home'
 
-  if (!session?.ids?.length) {
+  if (session?.quiz?.length && !session.quizDone) {
+    return (
+      <section className="screen study-shell">
+        <p className="muted">Opening your quiz…</p>
+      </section>
+    )
+  }
+
+  if (!session?.ids?.length || session.index >= session.ids.length) {
     return (
       <section className="screen study-shell">
         <h1>Nothing due</h1>
@@ -185,9 +203,9 @@ export function LearnScreen() {
       </div>
       {session.revealed ? (
         <div className="rate-row">
-          <button className="rate again" type="button" onClick={() => rate('again')}>Didn’t know</button>
-          <button className="rate almost" type="button" onClick={() => rate('almost')}>Almost</button>
-          <button className="rate know" type="button" onClick={() => rate('know')}>Knew it</button>
+          <button className="rate again" type="button" disabled={busy} onClick={() => rate('again')}>Didn’t know</button>
+          <button className="rate almost" type="button" disabled={busy} onClick={() => rate('almost')}>Almost</button>
+          <button className="rate know" type="button" disabled={busy} onClick={() => rate('know')}>Knew it</button>
         </div>
       ) : (
         <button className="cta wide" style={{ marginTop: 14 }} type="button" onClick={reveal}>
@@ -200,6 +218,14 @@ export function LearnScreen() {
 
 export function QuizScreen() {
   const { ready, session, chooseQuiz, nextQuiz, finishQuiz } = useStudy()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!ready || !session) return
+    const learnInProgress = session.ids?.length && session.index < session.ids.length && !session.quiz
+    if (learnInProgress) router.replace('/learn')
+  }, [ready, router, session])
+
   if (!ready) {
     return (
       <section className="screen study-shell">
@@ -208,6 +234,14 @@ export function QuizScreen() {
     )
   }
   const finishLabel = session?.topic ? 'Back to topic' : 'Back home'
+
+  if (session?.ids?.length && session.index < session.ids.length && !session.quiz) {
+    return (
+      <section className="screen study-shell">
+        <p className="muted">Opening your session…</p>
+      </section>
+    )
+  }
 
   if (!session?.quiz?.length) {
     return (
@@ -263,7 +297,7 @@ export function QuizScreen() {
           if (session.quizLocked && option === question.answer) className += ' right'
           if (session.quizLocked && option === session.chosen && option !== question.answer) className += ' wrong'
           return (
-            <button key={`${option}-${index}`} className={className} type="button" onClick={() => chooseQuiz(option)}>
+            <button key={`${option}-${index}`} className={className} type="button" disabled={session.quizLocked} onClick={() => chooseQuiz(option)}>
               {option}
             </button>
           )

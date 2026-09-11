@@ -24,8 +24,7 @@
 }
 
 html,
-body,
-#root {
+body {
   min-height: 100%;
 }
 
@@ -298,9 +297,15 @@ a.wotd {
 
 .cta:disabled,
 .nav button:disabled,
-.site-nav button:disabled {
+.site-nav button:disabled,
+.rate:disabled,
+.choice:disabled {
   opacity: 0.55;
   cursor: wait;
+}
+
+.choice:disabled {
+  cursor: default;
 }
 
 a.ghost {

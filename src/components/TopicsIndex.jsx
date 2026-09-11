@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { LEVELS } from '../data/words.js'
-import { TOPICS, topicLabel, topicWords } from '../data/topics.js'
+import { TOPICS, topicWords } from '../data/topics.js'
 import { topicMark } from '../lib/related.js'
 
 export function TopicsIndex() {
