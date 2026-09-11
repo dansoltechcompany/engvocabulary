@@ -6,7 +6,7 @@ const DAY_MS = 24 * 60 * 60 * 1000
 const SESSION_SIZE = 8
 const NEW_PER_SESSION = 4
 
-const emptyState = () => ({
+export const emptyState = () => ({
   onboardingDone: false,
   learnerLevel: 'A1',
   streak: 0,

@@ -1,29 +1,25 @@
-import { useState } from 'react'
+import Link from 'next/link'
 import { SITE } from '../data/site.js'
 
-function LegalLayout({ eyebrow, title, children, onOpen }) {
-  const open = (path) => (event) => {
-    event.preventDefault()
-    onOpen(path)
-  }
+function LegalLayout({ eyebrow, title, children }) {
   return (
     <article className="screen legal-page">
       <p className="eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       {children}
       <nav className="footer-links legal-page-links" aria-label="Also">
-        <a href="/vocabulary" onClick={(event) => { event.preventDefault(); onOpen('/vocabulary') }}>Topics</a>
-        <a href="/about" onClick={open('/about')}>About</a>
-        <a href="/privacy" onClick={open('/privacy')}>Privacy</a>
-        <a href="/contact" onClick={open('/contact')}>Contact</a>
+        <Link href="/vocabulary">Topics</Link>
+        <Link href="/about">About</Link>
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/contact">Contact</Link>
       </nav>
     </article>
   )
 }
 
-export function AboutPage({ onOpen }) {
+export function AboutPage() {
   return (
-    <LegalLayout eyebrow="About" title="A vocabulary site that teaches, not just lists." onOpen={onOpen}>
+    <LegalLayout eyebrow="About" title="A vocabulary site that teaches, not just lists.">
       <p className="prose">
         EngVocab helps you learn English words from beginner A1 to advanced C2.
         Each word has its own page: a plain-English explainer, examples, and a short note on how people actually use it.
@@ -47,9 +43,9 @@ export function AboutPage({ onOpen }) {
   )
 }
 
-export function PrivacyPage({ onOpen }) {
+export function PrivacyPage() {
   return (
-    <LegalLayout eyebrow="Privacy" title="What we store, and what we don’t." onOpen={onOpen}>
+    <LegalLayout eyebrow="Privacy" title="What we store, and what we don’t.">
       <p className="prose">
         This page is for a simple vocabulary website. We do not ask you to create an account.
         Last updated {SITE.privacyUpdated}.
@@ -89,81 +85,8 @@ export function PrivacyPage({ onOpen }) {
       <h2 className="entry-h">Questions</h2>
       <p className="prose tight">
         Email {SITE.email} or use the{' '}
-        <a href="/contact" onClick={(event) => { event.preventDefault(); onOpen('/contact') }}>Contact</a>
+        <Link href="/contact">Contact</Link>
         {' '}page.
-      </p>
-    </LegalLayout>
-  )
-}
-
-export function ContactPage({ onOpen }) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [sent, setSent] = useState(false)
-
-  const onSubmit = (event) => {
-    event.preventDefault()
-    const lines = []
-    if (name.trim()) lines.push(`Name: ${name.trim()}`)
-    if (email.trim()) lines.push(`Email: ${email.trim()}`)
-    if (lines.length) lines.push('')
-    lines.push(message.trim())
-    const body = lines.join('\n')
-    const subject = name.trim() ? `EngVocab message from ${name.trim()}` : 'EngVocab message'
-    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent(true)
-  }
-
-  return (
-    <LegalLayout eyebrow="Contact" title="Tell us if a page is wrong, or if something would help." onOpen={onOpen}>
-      <p className="prose">
-        We read notes about mistakes in a lesson, missing words, and ideas for the site.
-        This opens your email app and sends to {SITE.email}.
-      </p>
-
-      <form className="contact-form" onSubmit={onSubmit}>
-        <label>
-          Your name
-          <input
-            className="search"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            autoComplete="name"
-          />
-        </label>
-        <label>
-          Your email
-          <input
-            className="search"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            autoComplete="email"
-            required
-          />
-        </label>
-        <label>
-          Message
-          <textarea
-            className="search contact-message"
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-            required
-            rows={6}
-          />
-        </label>
-        <button className="cta" type="submit">
-          Open email <span>→</span>
-        </button>
-      </form>
-      {sent ? (
-        <p className="muted" style={{ marginTop: 16 }}>
-          If your email app did not open, write to {SITE.email} yourself.
-        </p>
-      ) : null}
-      <p className="prose tight">
-        We do not have a phone line. Please do not send exam papers or other people’s private work.
       </p>
     </LegalLayout>
   )
