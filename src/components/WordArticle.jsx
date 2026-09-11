@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildLesson } from '../lib/lesson.js'
+import { headword } from '../lib/labels.js'
 import { crumbForWord, relatedWords } from '../lib/related.js'
 import { topicsForWord, topicLabel } from '../data/topics.js'
 import { Pronunciation } from './Pronunciation.jsx'
@@ -11,6 +12,7 @@ export function WordArticle({ word }) {
   const lesson = buildLesson(word, related)
   const wordTopics = topicsForWord(word.id)
   const crumb = crumbForWord(word.id)
+  const title = headword(word.word)
 
   return (
     <article className="screen entry-layout">
@@ -21,8 +23,8 @@ export function WordArticle({ word }) {
         </p>
         <span className="chip" style={{ marginTop: 12 }}>{word.pos} · {word.level}</span>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginTop: 12, alignItems: 'flex-start' }}>
-          <h1 className="word-hero">{word.word}</h1>
-          <SpeakButton word={word.word} label={`Pronounce ${word.word}`} />
+          <h1 className="word-hero">{title}</h1>
+          <SpeakButton word={word.word} label={`Pronounce ${title}`} />
         </div>
         <Pronunciation word={word} />
 
@@ -85,7 +87,7 @@ export function WordArticle({ word }) {
                 href={`/word/${item.id}`}
               >
                 <span>
-                  <b>{item.word}</b>
+                  <b>{headword(item.word)}</b>
                   <span className="muted">{item.pos} · {item.meaning}</span>
                 </span>
                 <span className="chip">{item.level}</span>

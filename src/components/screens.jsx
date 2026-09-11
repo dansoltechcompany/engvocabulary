@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { LEVELS, WORDS, WORD_BY_ID, levelCounts } from '../data/words.js'
 import { TOPICS, topicLabel } from '../data/topics.js'
 import { getCard, getStats, getWordOfDay } from '../lib/progress.js'
-import { stageLabel } from '../lib/labels.js'
+import { stageLabel, headword, titleCase } from '../lib/labels.js'
 import { Pronunciation } from './Pronunciation.jsx'
 import { SpeakButton } from './SpeakButton.jsx'
 import { useStudy } from './StudyProvider.jsx'
@@ -95,7 +95,7 @@ export function HomeScreen() {
         {word ? (
           <Link className="card wotd" href={`/word/${word.id}`}>
             <p className="eyebrow">Word of the day</p>
-            <p className="word-hero">{word.word}</p>
+            <p className="word-hero">{headword(word.word)}</p>
             <Pronunciation word={word} />
             <p className="muted" style={{ marginTop: 10 }}>{word.meaning}</p>
           </Link>
@@ -186,8 +186,8 @@ export function LearnScreen() {
         <div>
           <span className="chip">{word.pos} · {word.level}</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 12, marginTop: 16 }}>
-            <h1 className="word-hero">{word.word}</h1>
-            <SpeakButton word={word.word} label="Pronounce" />
+            <h1 className="word-hero">{headword(word.word)}</h1>
+            <SpeakButton word={word.word} label={`Pronounce ${headword(word.word)}`} />
           </div>
           <Pronunciation word={word} />
         </div>
@@ -325,7 +325,7 @@ export function LibraryScreen() {
     return (
       <section className="screen">
         <p className="eyebrow">Library</p>
-        <h1>English words, A1 to C2</h1>
+        <h1>{titleCase('English words, A1 to C2')}</h1>
         <p className="muted" style={{ marginTop: 16 }}>Loading the list…</p>
       </section>
     )
@@ -342,7 +342,7 @@ export function LibraryScreen() {
   return (
     <section className="screen">
       <p className="eyebrow">Library</p>
-      <h1>English words, A1 to C2</h1>
+      <h1>{titleCase('English words, A1 to C2')}</h1>
       <input
         className="search"
         style={{ marginTop: 16 }}
@@ -393,7 +393,7 @@ export function LibraryScreen() {
           return (
             <Link key={word.id} className="word-row" href={`/word/${word.id}`}>
               <span>
-                <b>{word.word}</b>
+                <b>{headword(word.word)}</b>
                 <span className="muted">{word.pos} · {word.level}</span>
               </span>
               <span className="chip">{stageLabel(card.stage)}</span>

@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { LEVELS } from '../data/words.js'
 import { TOPICS, topicWords } from '../data/topics.js'
+import { titleCase } from '../lib/labels.js'
 import { topicMark } from '../lib/related.js'
 
 export function TopicsIndex() {
   return (
     <section className="screen">
       <p className="eyebrow">Topics</p>
-      <h1>English vocabulary by topic</h1>
+      <h1>{titleCase('English vocabulary by topic')}</h1>
       <p className="hero-copy muted">
         Sixteen lists for everyday English. Each word still has its own lesson.
       </p>
@@ -25,7 +26,7 @@ export function TopicsIndex() {
             >
               <span className={`topic-mark ${topic.slug}`} aria-hidden="true">{topicMark(topic)}</span>
               <p className="eyebrow">{count} words{range ? ` · ${range}` : ''}</p>
-              <h2>{topic.title}</h2>
+              <h2>{titleCase(topic.title)}</h2>
               <p className="muted">{topic.blurb}</p>
             </Link>
           )

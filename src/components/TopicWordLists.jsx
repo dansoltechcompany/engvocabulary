@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
+import { headword } from '../lib/labels.js'
 
 export function TopicWordLists({ present, groups }) {
   const [level, setLevel] = useState('all')
@@ -39,7 +40,7 @@ export function TopicWordLists({ present, groups }) {
                   prefetch={false}
                 >
                   <span className="topic-word-head">
-                    <b>{word.word}</b>
+                    <b>{headword(word.word)}</b>
                     <span className="chip">{word.level}</span>
                   </span>
                   <span className="muted">{word.meaning}</span>

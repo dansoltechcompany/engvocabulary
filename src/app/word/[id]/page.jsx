@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { WORDS, WORD_BY_ID } from '../../../data/words.js'
 import { buildLesson } from '../../../lib/lesson.js'
+import { headword } from '../../../lib/labels.js'
 import { pageMeta, wordJsonLd } from '../../../lib/seo.js'
 import { WordArticle } from '../../../components/WordArticle.jsx'
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }) {
   }
   const lesson = buildLesson(word)
   return pageMeta({
-    title: `${word.word} meaning — ${word.level} English | EngVocabulary`,
+    title: `${headword(word.word)} meaning — ${word.level} English | EngVocabulary`,
     description: lesson.explainer.slice(0, 158),
     path: `/word/${word.id}`,
   })

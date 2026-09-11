@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { LEVELS, WORD_BY_ID } from '../data/words.js'
 import { TOPICS, topicLabel, topicWords } from '../data/topics.js'
+import { titleCase } from '../lib/labels.js'
 import { TopicStudyButton } from './TopicStudyButton.jsx'
 import { TopicWordLists } from './TopicWordLists.jsx'
 
@@ -11,7 +12,7 @@ export function TopicHub({ topic }) {
   const range = present.length > 1 ? `${present[0]} to ${present[present.length - 1]}` : present[0] || ''
   const groups = topic.groups
     .map((group) => ({
-      heading: group.heading,
+      heading: titleCase(group.heading),
       words: group.ids
         .map((id) => WORD_BY_ID[id])
         .filter(Boolean)
@@ -29,9 +30,9 @@ export function TopicHub({ topic }) {
     <article className="screen">
       <p className="eyebrow">
         <Link href="/vocabulary">Topics</Link>
-        {' / '}{topic.title}
+        {' / '}{titleCase(topic.title)}
       </p>
-      <h1>{topic.h1}</h1>
+      <h1>{titleCase(topic.h1)}</h1>
       <p className="hero-copy muted">{topic.blurb} {total} words{range ? `, ${range}` : ''}.</p>
       <div className="stack" style={{ marginTop: 20, maxWidth: 560 }}>
         <TopicStudyButton slug={topic.slug} />
