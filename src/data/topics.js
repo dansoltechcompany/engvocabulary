@@ -15,7 +15,7 @@ export const TOPICS = [
       },
       {
         heading: 'Rain, wind, and storms',
-        ids: ['rain', 'rainy', 'drizzle', 'shower', 'storm', 'lightning', 'flood', 'wind', 'windy', 'gale', 'hurricane', 'monsoon', 'umbrella', 'raincoat', 'waterproof', 'wellington-boot', 'pour', 'bucket', 'rainbow'],
+        ids: ['rain', 'rainy', 'drizzle', 'shower', 'storm', 'lightning', 'flood', 'wind', 'windy', 'gale', 'hurricane', 'monsoon', 'umbrella', 'raincoat', 'waterproof', 'wellington-boot', 'pour', 'rainbow'],
       },
       {
         heading: 'Heat, cold, and ice',
@@ -33,7 +33,7 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Parents and children',
-        ids: ['family', 'mother', 'father', 'parent', 'mum', 'dad', 'brother', 'sister', 'son', 'daughter', 'child', 'children', 'baby', 'infant', 'teenager', 'adult', 'twin', 'raise', 'care', 'love', 'hug', 'kiss', 'nanny', 'babysitter', 'nursery', 'school-run', 'allowance', 'household', 'home'],
+        ids: ['family', 'mother', 'father', 'parent', 'mum', 'dad', 'brother', 'sister', 'son', 'daughter', 'child', 'children', 'baby', 'infant', 'teenager', 'adult', 'twin', 'care', 'love', 'hug', 'kiss', 'nanny', 'babysitter', 'nursery', 'school-run', 'allowance', 'household', 'home', 'upbringing', 'guardian'],
       },
       {
         heading: 'Relatives',
@@ -41,7 +41,7 @@ export const TOPICS = [
       },
       {
         heading: 'Partnership and life events',
-        ids: ['husband', 'wife', 'married', 'marriage', 'wedding', 'wedding-ring', 'boyfriend', 'girlfriend', 'partner', 'engaged', 'engagement', 'pregnant', 'pregnancy', 'birth', 'birthday', 'born', 'adopt', 'adoption', 'foster', 'divorce', 'single', 'middle'],
+        ids: ['husband', 'wife', 'married', 'marriage', 'wedding', 'wedding-ring', 'boyfriend', 'girlfriend', 'partner', 'engaged', 'engagement', 'pregnant', 'pregnancy', 'birth', 'birthday', 'born', 'adopt', 'adoption', 'foster', 'divorce', 'single', 'custody'],
       },
     ],
   },
@@ -59,7 +59,7 @@ export const TOPICS = [
       },
       {
         heading: 'Furniture and furnishings',
-        ids: ['furniture', 'table', 'chair', 'armchair', 'sofa', 'sofa-bed', 'bed', 'pillow', 'pillowcase', 'blanket', 'duvet', 'duvet-cover', 'sheet', 'wardrobe', 'cupboard', 'drawer', 'sock-drawer', 'shelf', 'bookcase', 'desk', 'stool', 'bench', 'carpet', 'rug', 'curtain', 'blinds', 'rollerblind', 'lamp', 'light', 'bulb', 'clock', 'picture', 'photo-frame', 'vase', 'plant', 'cushion', 'throw'],
+        ids: ['furniture', 'table', 'chair', 'armchair', 'sofa', 'sofa-bed', 'bed', 'pillow', 'pillowcase', 'blanket', 'duvet', 'duvet-cover', 'sheet', 'wardrobe', 'cupboard', 'drawer', 'sock-drawer', 'shelf', 'bookcase', 'desk', 'stool', 'bench', 'carpet', 'rug', 'curtain', 'blinds', 'rollerblind', 'lamp', 'light', 'bulb', 'clock', 'picture', 'photo-frame', 'vase', 'plant', 'cushion'],
       },
       {
         heading: 'Kitchen, bathroom, and bills',
@@ -129,7 +129,7 @@ export const TOPICS = [
       },
       {
         heading: 'Taste and ingredients',
-        ids: ['taste', 'flavour', 'delicious', 'hot', 'sweet', 'bitter', 'crisp', 'bread', 'toast', 'butter', 'jam', 'honey', 'cheese', 'egg', 'milk', 'yoghurt', 'cream', 'oil', 'vinegar', 'salt', 'pepper', 'sugar', 'flour', 'rice', 'pasta', 'potato', 'chips', 'crisps', 'meat', 'beef', 'lamb', 'chicken', 'turkey', 'fish', 'salmon', 'vegetable', 'salad', 'soup', 'sauce', 'gravy', 'curry', 'pizza', 'burger', 'sandwich', 'sarnie', 'pie', 'cake', 'biscuit', 'chocolate', 'ice-cream', 'fruit', 'apple', 'banana', 'orange', 'grape', 'strawberry', 'lemon', 'tomato', 'onion', 'garlic', 'carrot', 'pea', 'bean', 'cabbage', 'lettuce', 'cucumber', 'mushroom', 'herb', 'coffee', 'tea', 'juice', 'wine', 'beer', 'fizzy'],
+        ids: ['taste', 'flavour', 'delicious', 'sweet', 'bitter', 'crisp', 'bread', 'toast', 'butter', 'jam', 'honey', 'cheese', 'egg', 'milk', 'yoghurt', 'cream', 'oil', 'vinegar', 'salt', 'pepper', 'sugar', 'flour', 'rice', 'pasta', 'potato', 'chips', 'crisps', 'meat', 'beef', 'lamb', 'chicken', 'turkey', 'fish', 'salmon', 'vegetable', 'salad', 'soup', 'sauce', 'gravy', 'curry', 'pizza', 'burger', 'sandwich', 'sarnie', 'pie', 'cake', 'biscuit', 'chocolate', 'ice-cream', 'fruit', 'apple', 'banana', 'orange', 'grape', 'strawberry', 'lemon', 'tomato', 'onion', 'garlic', 'carrot', 'pea', 'bean', 'cabbage', 'lettuce', 'cucumber', 'mushroom', 'herb', 'coffee', 'tea', 'juice', 'wine', 'beer', 'fizzy', 'chilli', 'mild'],
       },
     ],
   },
@@ -143,15 +143,15 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Essays and writing',
-        ids: ['academic', 'essay', 'paragraph', 'sentence', 'word', 'vocabulary', 'grammar', 'punctuation', 'spell', 'draft', 'revise', 'outline', 'summary', 'summarise', 'introduction', 'conclusion', 'abstract', 'heading', 'bullet', 'footnote', 'appendix', 'glossary', 'paraphrase', 'cite', 'citation', 'quote', 'quotation', 'reference', 'source', 'evidence', 'argument', 'claim', 'point', 'reason', 'example', 'highlight', 'submit', 'deadline', 'extension', 'presentation', 'slide'],
+        ids: ['academic', 'essay', 'paragraph', 'sentence', 'word', 'vocabulary', 'grammar', 'punctuation', 'spell', 'draft', 'revise', 'outline', 'summary', 'summarise', 'introduction', 'conclusion', 'heading', 'footnote', 'appendix', 'glossary', 'paraphrase', 'cite', 'citation', 'quote', 'quotation', 'reference', 'source', 'evidence', 'argument', 'claim', 'point', 'reason', 'example', 'highlight', 'submit', 'deadline', 'extension', 'presentation', 'diagram'],
       },
       {
         heading: 'Study skills and research',
-        ids: ['lecture', 'seminar', 'module', 'assignment', 'coursework', 'dissertation', 'thesis', 'research', 'analyse', 'analysis', 'evaluate', 'discuss', 'compare', 'contrast', 'define', 'explain', 'describe', 'illustrate', 'interpret', 'critical', 'theory', 'hypothesis', 'method', 'methodology', 'data', 'result', 'journal', 'article', 'literature', 'scholar', 'review', 'statistic', 'percentage', 'chart', 'graph', 'table', 'figure', 'concept', 'context', 'issue', 'topic', 'theme', 'structure'],
+        ids: ['lecture', 'seminar', 'module', 'assignment', 'coursework', 'dissertation', 'thesis', 'research', 'analyse', 'analysis', 'evaluate', 'discuss', 'compare', 'contrast', 'define', 'explain', 'describe', 'illustrate', 'interpret', 'critical', 'theory', 'hypothesis', 'method', 'methodology', 'data', 'result', 'journal', 'article', 'literature', 'scholar', 'review', 'statistic', 'percentage', 'chart', 'graph', 'figure', 'concept', 'context', 'issue', 'topic', 'theme', 'structure'],
       },
       {
         heading: 'University and assessment',
-        ids: ['university', 'undergraduate', 'professor', 'tutor', 'lecturer', 'faculty', 'campus', 'library', 'degree', 'bachelor', 'master', 'doctorate', 'criterion', 'criteria', 'assessment', 'feedback', 'mark', 'grade', 'pass', 'fail', 'distinction', 'curriculum', 'term', 'register', 'significant', 'relevant', 'accurate', 'objective', 'subjective', 'bias', 'valid', 'reliable', 'coherent', 'concise', 'formal', 'informal', 'optional', 'compulsory'],
+        ids: ['university', 'undergraduate', 'professor', 'tutor', 'lecturer', 'faculty', 'campus', 'library', 'degree', 'bachelor', 'doctorate', 'criterion', 'criteria', 'assessment', 'feedback', 'mark', 'grade', 'pass', 'fail', 'distinction', 'curriculum', 'term', 'register', 'significant', 'relevant', 'accurate', 'objective', 'subjective', 'bias', 'valid', 'reliable', 'coherent', 'concise', 'formal', 'informal', 'optional', 'compulsory'],
       },
     ],
   },
@@ -169,7 +169,7 @@ export const TOPICS = [
       },
       {
         heading: 'Stronger states',
-        ids: ['anxious', 'stress', 'panic', 'shock', 'furious', 'miserable', 'ashamed', 'embarrassed', 'guilty', 'disappointed', 'hopeful', 'grateful', 'satisfied', 'content', 'jealous', 'envy', 'envious', 'grief', 'loss', 'hurt', 'pain', 'fear', 'anger', 'depression', 'anxiety', 'insecure', 'coward', 'brave', 'relief', 'amazed', 'confused', 'curious', 'hope', 'delight', 'joy', 'pleasure'],
+        ids: ['anxious', 'stress', 'panic', 'shock', 'furious', 'miserable', 'ashamed', 'embarrassed', 'guilty', 'disappointed', 'hopeful', 'grateful', 'satisfied', 'jealous', 'envy', 'envious', 'grief', 'loss', 'hurt', 'pain', 'fear', 'anger', 'depression', 'anxiety', 'insecure', 'coward', 'brave', 'relief', 'amazed', 'confused', 'curious', 'hope', 'delight', 'joy', 'pleasure'],
       },
       {
         heading: 'How we treat people',
@@ -191,11 +191,11 @@ export const TOPICS = [
       },
       {
         heading: 'Getting work and pay',
-        ids: ['interview', 'application', 'apply', 'candidate', 'recruit', 'hire', 'appoint', 'contract', 'permanent', 'temporary', 'full-time', 'part-time', 'shift', 'overtime', 'remote', 'commute', 'desk', 'salary', 'wage', 'pay', 'bonus', 'pension', 'benefit', 'holiday', 'maternity', 'resign', 'retire', 'redundancy', 'redundant', 'unemployed', 'unemployment', 'promotion', 'promote', 'qualification', 'skill', 'experience', 'training'],
+        ids: ['interview', 'application', 'apply', 'candidate', 'recruit', 'hire', 'appoint', 'contract', 'permanent', 'temporary', 'full-time', 'part-time', 'shift', 'overtime', 'commute', 'desk', 'salary', 'wage', 'pay', 'bonus', 'pension', 'benefit', 'holiday', 'maternity', 'resign', 'retire', 'redundancy', 'redundant', 'unemployed', 'unemployment', 'promotion', 'promote', 'qualification', 'skill', 'experience', 'training', 'flexible'],
       },
       {
         heading: 'The office and the market',
-        ids: ['deadline', 'meeting', 'agenda', 'minutes', 'email', 'memo', 'report', 'project', 'client', 'customer', 'invoice', 'budget', 'target', 'performance', 'review', 'industry', 'sector', 'market', 'profit', 'loss', 'revenue', 'product', 'service', 'brand', 'marketing', 'advertising', 'negotiate', 'union', 'workload', 'stress', 'burnout', 'board', 'shareholder', 'policy', 'procedure', 'factory', 'warehouse', 'retail', 'corporate'],
+        ids: ['deadline', 'meeting', 'agenda', 'minutes', 'email', 'memo', 'report', 'project', 'client', 'customer', 'invoice', 'budget', 'target', 'performance', 'industry', 'sector', 'market', 'profit', 'loss', 'revenue', 'product', 'service', 'brand', 'marketing', 'advertising', 'negotiate', 'union', 'workload', 'stress', 'burnout', 'board', 'shareholder', 'policy', 'procedure', 'factory', 'warehouse', 'retail', 'corporate', 'appraisal'],
       },
     ],
   },
@@ -209,7 +209,7 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Places and paying',
-        ids: ['shop', 'shopping', 'store', 'supermarket', 'market', 'mall', 'high-street', 'department-store', 'bookshop', 'corner-shop', 'chip-shop', 'shopping-centre', 'buy', 'sell', 'purchase', 'order', 'pay', 'spend', 'cash', 'card', 'coin', 'wallet', 'pound', 'tip', 'till', 'checkout', 'cashier', 'queue', 'basket', 'trolley', 'bag', 'carrier-bag', 'shopping-bag'],
+        ids: ['shop', 'shopping', 'store', 'supermarket', 'market', 'mall', 'high-street', 'department-store', 'bookshop', 'corner-shop', 'chip-shop', 'shopping-centre', 'buy', 'sell', 'purchase', 'order', 'pay', 'spend', 'cash', 'card', 'coin', 'wallet', 'pound', 'till', 'checkout', 'cashier', 'queue', 'basket', 'trolley', 'bag', 'carrier-bag', 'shopping-bag', 'kiosk'],
       },
       {
         heading: 'Price and offers',
@@ -217,7 +217,7 @@ export const TOPICS = [
       },
       {
         heading: 'In the shop',
-        ids: ['aisle', 'shelf', 'size', 'fit', 'fitting-room', 'brand', 'label', 'quality', 'fake', 'counterfeit', 'customer', 'complaint', 'delivery', 'online', 'website', 'browse', 'window', 'display', 'advert', 'advertisement', 'poster', 'leaflet', 'catalogue', 'stall', 'vendor', 'buyer', 'manager', 'security', 'alarm', 'scan', 'service', 'open', 'closed'],
+        ids: ['aisle', 'shelf', 'size', 'fit', 'fitting-room', 'brand', 'label', 'quality', 'fake', 'counterfeit', 'customer', 'complaint', 'delivery', 'online', 'website', 'browse', 'display', 'advert', 'advertisement', 'poster', 'leaflet', 'catalogue', 'vendor', 'buyer', 'manager', 'security', 'alarm', 'scan', 'service', 'open', 'closed'],
       },
     ],
   },
@@ -239,7 +239,7 @@ export const TOPICS = [
       },
       {
         heading: 'Digital life',
-        ids: ['code', 'coding', 'developer', 'virus', 'cyber', 'digital', 'virtual', 'robot', 'algorithm', 'post', 'share', 'like', 'comment', 'follow', 'viral', 'blog', 'video', 'photo', 'call', 'text', 'message', 'chat', 'emoji', 'privacy', 'cookie', 'innovation', 'storage'],
+        ids: ['coding', 'developer', 'virus', 'cyber', 'digital', 'virtual', 'robot', 'algorithm', 'post', 'share', 'comment', 'follow', 'viral', 'blog', 'video', 'photo', 'call', 'text', 'message', 'chat', 'emoji', 'privacy', 'cookie', 'innovation', 'storage', 'react'],
       },
     ],
   },
@@ -301,7 +301,7 @@ export const TOPICS = [
       },
       {
         heading: 'People and places',
-        ids: ['doctor', 'nurse', 'hospital', 'clinic', 'surgery', 'ward', 'ambulance', 'emergency', 'chemist', 'prescription', 'medicine', 'pill', 'tablet', 'dose', 'appointment', 'waiting-room', 'dentist', 'counsellor', 'psychologist', 'surgeon', 'wheelchair', 'disabled', 'disability'],
+        ids: ['doctor', 'nurse', 'hospital', 'clinic', 'surgery', 'ward', 'ambulance', 'emergency', 'chemist', 'prescription', 'medicine', 'pill', 'dose', 'appointment', 'waiting-room', 'dentist', 'counsellor', 'psychologist', 'surgeon', 'wheelchair', 'disabled', 'disability', 'capsule'],
       },
       {
         heading: 'Body and treatment',
@@ -341,7 +341,7 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Arts and going out',
-        ids: ['hobby', 'leisure', 'interest', 'club', 'member', 'join', 'music', 'song', 'sing', 'singer', 'band', 'concert', 'festival', 'guitar', 'piano', 'violin', 'drum', 'instrument', 'orchestra', 'choir', 'listen', 'album', 'film', 'movie', 'cinema', 'actor', 'actress', 'director', 'scene', 'theatre', 'play', 'drama', 'ballet', 'opera', 'museum', 'gallery'],
+        ids: ['hobby', 'leisure', 'interest', 'club', 'member', 'join', 'music', 'song', 'sing', 'singer', 'band', 'concert', 'festival', 'guitar', 'piano', 'violin', 'drum', 'instrument', 'orchestra', 'choir', 'listen', 'album', 'film', 'movie', 'cinema', 'actor', 'actress', 'director', 'scene', 'theatre', 'drama', 'ballet', 'opera', 'museum', 'gallery'],
       },
       {
         heading: 'Making and collecting',
@@ -349,7 +349,7 @@ export const TOPICS = [
       },
       {
         heading: 'Games and being active',
-        ids: ['game', 'board-game', 'chess', 'video-game', 'console', 'crossword', 'dance', 'dancer', 'yoga', 'run', 'jog', 'cycle', 'cycling', 'swim', 'swimming', 'walk', 'hiking', 'hike', 'camp', 'camping', 'fish', 'fishing', 'volunteer', 'blog', 'television', 'series', 'radio', 'newspaper', 'magazine', 'kite', 'picnic', 'barbecue', 'party', 'celebrate'],
+        ids: ['game', 'board-game', 'chess', 'video-game', 'crossword', 'dance', 'dancer', 'yoga', 'run', 'jog', 'cycle', 'cycling', 'swim', 'swimming', 'walk', 'hiking', 'hike', 'camp', 'camping', 'fishing', 'volunteer', 'blog', 'television', 'series', 'radio', 'newspaper', 'magazine', 'kite', 'picnic', 'barbecue', 'party', 'celebrate', 'joystick'],
       },
     ],
   },
