@@ -19,7 +19,7 @@ export const TOPICS = [
       },
       {
         heading: 'Heat, cold, and ice',
-        ids: ['heat', 'hot', 'cold', 'warm', 'cool', 'mild', 'heatwave', 'tropical', 'arctic', 'pole', 'equator', 'ice', 'frost', 'freeze', 'frozen', 'melt', 'snow', 'fog', 'foggy', 'mist', 'hail', 'drought', 'damp', 'dry', 'wet', 'humidity', 'shade', 'sunburn', 'extreme', 'severe', 'harsh', 'gentle', 'calm', 'rough', 'wave', 'tide', 'sea', 'ocean', 'current', 'dew', 'flash', 'pollution'],
+        ids: ['heat', 'hot', 'cold', 'warm', 'cool', 'mild', 'heatwave', 'tropical', 'arctic', 'pole', 'equator', 'ice', 'frost', 'freeze', 'frozen', 'melt', 'snow', 'fog', 'foggy', 'mist', 'hail', 'drought', 'damp', 'dry', 'wet', 'humidity', 'shade', 'sunburn', 'extreme', 'severe', 'harsh', 'gentle', 'calm', 'rough', 'tide', 'sea', 'ocean', 'current', 'dew', 'flash', 'pollution'],
       },
     ],
   },
@@ -33,11 +33,11 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Parents and children',
-        ids: ['family', 'mother', 'father', 'parent', 'mum', 'dad', 'brother', 'sister', 'son', 'daughter', 'child', 'children', 'baby', 'infant', 'teenager', 'adult', 'twin', 'raise', 'care', 'love', 'hug', 'kiss', 'nanny', 'babysitter', 'nursery', 'school-run', 'allowance', 'household', 'home', 'nuclear'],
+        ids: ['family', 'mother', 'father', 'parent', 'mum', 'dad', 'brother', 'sister', 'son', 'daughter', 'child', 'children', 'baby', 'infant', 'teenager', 'adult', 'twin', 'raise', 'care', 'love', 'hug', 'kiss', 'nanny', 'babysitter', 'nursery', 'school-run', 'allowance', 'household', 'home'],
       },
       {
         heading: 'Relatives',
-        ids: ['relative', 'cousin', 'uncle', 'aunt', 'nephew', 'niece', 'grandmother', 'grandfather', 'grandparent', 'grandma', 'grandpa', 'grandchild', 'ancestor', 'descendant', 'generation', 'kin', 'clan', 'tribe', 'surname', 'heir', 'inherit', 'will', 'orphan', 'widow'],
+        ids: ['relative', 'cousin', 'uncle', 'aunt', 'nephew', 'niece', 'grandmother', 'grandfather', 'grandparent', 'grandma', 'grandpa', 'grandchild', 'ancestor', 'descendant', 'generation', 'kin', 'clan', 'tribe', 'surname', 'heir', 'inherit', 'orphan', 'widow'],
       },
       {
         heading: 'Partnership and life events',
@@ -55,7 +55,7 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Houses and rooms',
-        ids: ['home', 'house', 'flat', 'apartment', 'cottage', 'villa', 'semi', 'terrace', 'building', 'block', 'upstairs', 'downstairs', 'attic', 'loft', 'basement', 'cellar', 'garage', 'garden', 'yard', 'drive', 'fence', 'gate', 'roof', 'ceiling', 'wall', 'floor', 'door', 'window', 'window-sill', 'chimney', 'stairs', 'corridor', 'room', 'bedroom', 'bathroom', 'kitchen', 'living-room', 'dining-room', 'study', 'office', 'balcony'],
+        ids: ['home', 'house', 'flat', 'apartment', 'cottage', 'villa', 'semi', 'terrace', 'building', 'block', 'upstairs', 'downstairs', 'attic', 'loft', 'basement', 'cellar', 'garage', 'garden', 'yard', 'fence', 'gate', 'roof', 'ceiling', 'wall', 'floor', 'door', 'window', 'window-sill', 'chimney', 'stairs', 'corridor', 'room', 'bedroom', 'bathroom', 'kitchen', 'living-room', 'dining-room', 'office', 'balcony', 'driveway'],
       },
       {
         heading: 'Furniture and furnishings',
@@ -77,15 +77,15 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Games and matches',
-        ids: ['sport', 'game', 'play', 'team', 'club', 'win', 'lose', 'draw', 'score', 'goal', 'match', 'competition', 'championship', 'cup', 'football', 'cricket', 'tennis', 'rugby', 'hockey', 'golf', 'basketball', 'volleyball', 'baseball', 'rounders', 'snooker', 'darts', 'boxing', 'wrestle', 'martial', 'swim', 'swimming', 'cycling', 'cycle', 'bike', 'bicycle', 'skate', 'ski', 'skiing', 'snowboard', 'hiking', 'yoga'],
+        ids: ['sport', 'game', 'play', 'team', 'club', 'win', 'lose', 'score', 'goal', 'match', 'competition', 'championship', 'football', 'cricket', 'tennis', 'rugby', 'hockey', 'golf', 'basketball', 'volleyball', 'baseball', 'rounders', 'snooker', 'darts', 'boxing', 'wrestle', 'martial', 'swim', 'swimming', 'cycling', 'cycle', 'bike', 'bicycle', 'skate', 'ski', 'skiing', 'snowboard', 'hiking', 'yoga', 'opponent', 'compete', 'victory', 'defeat', 'spectator', 'athletics'],
       },
       {
         heading: 'People and places',
-        ids: ['athlete', 'coach', 'trainer', 'fan', 'crowd', 'champion', 'captain', 'substitute', 'goalkeeper', 'stadium', 'pitch', 'court', 'field', 'track', 'pool', 'gym', 'bench', 'league', 'season', 'fixture'],
+        ids: ['athlete', 'coach', 'trainer', 'fan', 'crowd', 'champion', 'captain', 'substitute', 'goalkeeper', 'stadium', 'court', 'field', 'track', 'pool', 'gym', 'bench', 'league', 'fixture', 'arena', 'changing-room', 'commentator', 'jersey'],
       },
       {
         heading: 'Actions and kit',
-        ids: ['training', 'exercise', 'fitness', 'workout', 'race', 'run', 'marathon', 'jog', 'jump', 'throw', 'catch', 'kick', 'hit', 'pass', 'tackle', 'serve', 'bowl', 'dive', 'stretch', 'medal', 'record', 'injury', 'bruise', 'kit', 'uniform', 'boots', 'trainers', 'helmet', 'goggles', 'swimming-goggles', 'whistle', 'bat', 'ball', 'wicket', 'racket', 'tennis-racket', 'try', 'defence', 'penalty', 'corner', 'amateur', 'professional', 'highlight'],
+        ids: ['training', 'exercise', 'fitness', 'workout', 'race', 'run', 'marathon', 'jog', 'jump', 'throw', 'catch', 'kick', 'hit', 'tackle', 'dive', 'stretch', 'medal', 'injury', 'bruise', 'kit', 'uniform', 'boots', 'trainers', 'helmet', 'goggles', 'swimming-goggles', 'whistle', 'ball', 'wicket', 'racket', 'tennis-racket', 'defence', 'penalty', 'amateur', 'professional', 'qualify', 'equalise', 'disqualify', 'net', 'hurdle', 'relay', 'defender'],
       },
     ],
   },
@@ -99,15 +99,15 @@ export const TOPICS = [
     groups: [
       {
         heading: 'Airport and flying',
-        ids: ['travel', 'trip', 'journey', 'voyage', 'tour', 'tourist', 'tourism', 'holiday', 'vacation', 'break', 'destination', 'itinerary', 'passport', 'visa', 'border', 'customs', 'immigration', 'airport', 'aeroplane', 'plane', 'aircraft', 'flight', 'fly', 'pilot', 'cabin', 'crew', 'boarding', 'gate', 'landing', 'delay', 'luggage', 'suitcase', 'rucksack', 'backpack', 'check-in', 'security', 'terminal', 'airline', 'ticket', 'booking', 'reservation', 'return', 'one-way', 'fare'],
+        ids: ['travel', 'trip', 'journey', 'voyage', 'tour', 'tourist', 'tourism', 'holiday', 'vacation', 'break', 'destination', 'itinerary', 'passport', 'visa', 'border', 'customs', 'immigration', 'airport', 'aeroplane', 'plane', 'aircraft', 'flight', 'fly', 'pilot', 'cabin', 'crew', 'boarding', 'gate', 'landing', 'delay', 'luggage', 'suitcase', 'rucksack', 'backpack', 'baggage', 'check-in', 'security', 'terminal', 'airline', 'ticket', 'booking', 'reservation', 'return', 'one-way', 'fare', 'departure', 'arrival', 'aisle', 'seat'],
       },
       {
         heading: 'Getting around',
-        ids: ['platform', 'station', 'train', 'railway', 'carriage', 'tram', 'underground', 'tube', 'metro', 'bus', 'coach', 'taxi', 'car', 'hire-car', 'drive', 'driver', 'motorway', 'roundabout', 'junction', 'traffic', 'congestion', 'petrol', 'diesel', 'fuel', 'map', 'sat-nav', 'direction', 'left', 'right', 'straight', 'north', 'south', 'east', 'west', 'road', 'street', 'lane', 'path', 'pavement', 'crossing', 'pelican-crossing', 'bridge', 'ferry', 'ship', 'boat', 'port', 'harbour', 'cruise'],
+        ids: ['platform', 'station', 'train', 'railway', 'carriage', 'compartment', 'tram', 'underground', 'tube', 'metro', 'bus', 'bus-stop', 'minibus', 'taxi', 'car', 'hire-car', 'drive', 'driver', 'motorway', 'roundabout', 'junction', 'traffic', 'congestion', 'petrol', 'diesel', 'fuel', 'map', 'sat-nav', 'timetable', 'direction', 'left', 'right', 'straight', 'north', 'south', 'east', 'west', 'road', 'street', 'lane', 'path', 'pavement', 'crossing', 'pelican-crossing', 'bridge', 'ferry', 'ship', 'boat', 'port', 'harbour', 'cruise'],
       },
       {
         heading: 'Staying somewhere',
-        ids: ['hotel', 'hostel', 'room', 'reception', 'lobby', 'lift', 'floor', 'single', 'double', 'twin', 'breakfast', 'campsite', 'tent', 'caravan', 'guidebook', 'postcard', 'currency', 'exchange', 'embassy', 'lost-property', 'insurance', 'homesick', 'abroad', 'overseas', 'local', 'translate'],
+        ids: ['hotel', 'hostel', 'room', 'reception', 'receptionist', 'lift', 'floor', 'double', 'en-suite', 'balcony', 'breakfast', 'campsite', 'tent', 'caravan', 'guidebook', 'postcard', 'currency', 'exchange', 'embassy', 'lost-property', 'insurance', 'homesick', 'abroad', 'overseas', 'local', 'translate'],
       },
     ],
   },
