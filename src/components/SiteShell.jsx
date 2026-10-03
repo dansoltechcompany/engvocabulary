@@ -65,6 +65,7 @@ export function SiteShell({ children }) {
         <div className="site-footer-inner">
           <p>EngVocabulary — English words with short lessons and a daily practice.</p>
           <nav className="footer-links" aria-label="Site">
+            <Link href="/words">All words</Link>
             <Link href="/vocabulary">Topics</Link>
             <Link href="/about">About</Link>
             <Link href="/privacy">Privacy</Link>

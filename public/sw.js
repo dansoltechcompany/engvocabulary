@@ -1,4 +1,4 @@
-const CACHE = 'engvocabulary-v6'
+const CACHE = 'engvocabulary-v7'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

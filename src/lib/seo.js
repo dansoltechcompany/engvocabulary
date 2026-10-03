@@ -58,3 +58,23 @@ export function topicJsonLd(topic, count) {
     url: `${SITE.origin}/vocabulary/${topic.slug}`,
   }
 }
+
+export function letterJsonLd(letter, words) {
+  const upper = String(letter || '').toUpperCase()
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `English words starting with ${upper}`,
+    url: `${SITE.origin}/words/${letter}`,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: words.length,
+      itemListElement: words.map((word, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: headword(word.word),
+        url: `${SITE.origin}/word/${word.id}`,
+      })),
+    },
+  }
+}

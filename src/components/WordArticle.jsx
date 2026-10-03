@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { buildLesson } from '../lib/lesson.js'
 import { headword } from '../lib/labels.js'
+import { letterOf, neighborWords } from '../lib/directory.js'
 import { crumbForWord, relatedWords } from '../lib/related.js'
 import { topicsForWord, topicLabel } from '../data/topics.js'
 import { Pronunciation } from './Pronunciation.jsx'
@@ -13,6 +14,8 @@ export function WordArticle({ word }) {
   const wordTopics = topicsForWord(word.id)
   const crumb = crumbForWord(word.id)
   const title = headword(word.word)
+  const letter = letterOf(word)
+  const { previous, next } = neighborWords(word.id)
 
   return (
     <article className="screen entry-layout">
@@ -72,6 +75,19 @@ export function WordArticle({ word }) {
         ) : null}
 
         <p style={{ marginTop: 24 }}><StageChip id={word.id} /></p>
+        <nav className="word-neighbors" aria-label="Nearby words">
+          {previous ? (
+            <Link href={`/word/${previous.id}`}>← {headword(previous.word)}</Link>
+          ) : <span />}
+          {letter ? (
+            <Link href={`/words/${letter}`}>All {letter.toUpperCase()} words</Link>
+          ) : (
+            <Link href="/words">All words</Link>
+          )}
+          {next ? (
+            <Link href={`/word/${next.id}`}>{headword(next.word)} →</Link>
+          ) : <span />}
+        </nav>
       </div>
       {lesson.related.length > 0 && (
         <aside>

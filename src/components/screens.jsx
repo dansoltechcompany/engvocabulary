@@ -113,6 +113,9 @@ export function HomeScreen() {
             </Link>
           ))}
         </div>
+        <p className="inline-link-row">
+          <Link href="/words">Browse all words, A to Z</Link>
+        </p>
       </aside>
     </section>
   )
@@ -312,7 +315,7 @@ export function QuizScreen() {
   )
 }
 
-export function LibraryScreen() {
+export function LibraryScreen({ embedded = false }) {
   const { state, ready } = useStudy()
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState('all')
@@ -322,6 +325,14 @@ export function LibraryScreen() {
     if (ready) setLevel(state.learnerLevel || 'all')
   }, [ready, state.learnerLevel])
   if (!ready) {
+    if (embedded) {
+      return (
+        <section className="screen" id="search">
+          <h2 className="entry-h">Search the dictionary</h2>
+          <p className="muted">Loading search…</p>
+        </section>
+      )
+    }
     return (
       <section className="screen">
         <p className="eyebrow">Library</p>
@@ -340,9 +351,15 @@ export function LibraryScreen() {
   const visible = list.slice(0, shown)
 
   return (
-    <section className="screen">
-      <p className="eyebrow">Library</p>
-      <h1>{titleCase('English words, A1 to C2')}</h1>
+    <section className="screen" id={embedded ? 'search' : undefined}>
+      {embedded ? (
+        <h2 className="entry-h">Search the dictionary</h2>
+      ) : (
+        <>
+          <p className="eyebrow">Library</p>
+          <h1>{titleCase('English words, A1 to C2')}</h1>
+        </>
+      )}
       <input
         className="search"
         style={{ marginTop: 16 }}

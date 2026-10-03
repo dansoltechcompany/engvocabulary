@@ -1,0 +1,2 @@
+# One address for the whole site. Google was treating www as a second copy.
+https://www.engvocabulary.com/* https://engvocabulary.com/:splat 301
