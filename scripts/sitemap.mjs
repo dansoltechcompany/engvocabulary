@@ -1,11 +1,15 @@
 import { writeFileSync } from 'node:fs'
 import { WORDS } from '../src/data/words.js'
 import { TOPICS } from '../src/data/topics.js'
+import { LETTERS } from '../src/lib/directory.js'
 
 const origin = process.env.SITE_ORIGIN || 'https://engvocabulary.com'
+// Bump this when the public pages change so Google can tell the sitemap is fresh.
+const LASTMOD = '2026-10-03'
 const urls = [
   '/',
   '/words',
+  ...LETTERS.map((letter) => `/words/${letter}`),
   '/vocabulary',
   '/about',
   '/privacy',
@@ -19,6 +23,7 @@ ${urls
   .map(
     (path) => `  <url>
     <loc>${origin}${path}</loc>
+    <lastmod>${LASTMOD}</lastmod>
   </url>`
   )
   .join('\n')}
